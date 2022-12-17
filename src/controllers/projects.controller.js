@@ -1,6 +1,10 @@
 import { where } from "sequelize";
-import { Project } from "../models/Project.js"
+import { Project } from "../models/Project.js";
 import { Task } from "../models/Task.js";
+import jwt from "jsonwebtoken";
+//var jwt = require('jsonwebtoken');
+
+//---------------------------metodos del projecto
 
 export const getProjects = async (req, res) => {
 
@@ -35,20 +39,38 @@ export const getProject = async (req, res) => {
 }
 
 export const createProject = async (req, res) => {
-    try {
-        const { name, priority, description } = req.body
-        const newProject = await Project.create({
-            name,
-            priority,
-            description
-        })
-        console.log(newProject);
-        res.send(newProject)
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
+
+//---------------------------conf para jwt
+const token=jwt.sign({
+    name:req.body.name
+    //priority:req.body.priority
+}, 
+'secreto'
+//process.env.TOKEN_SECRET
+);
+
+return res.json(token);
+
+//------------------------------------------
+    // try {
+    //     const { name, priority, description } = req.body
+    //     const newProject = await Project.create({
+    //         name,
+    //         priority,
+    //         description
+    //     })
+    //     console.log(newProject);
+    //     console.log(token);
+    //     res.send(newProject)
+    // } catch (error) {
+    //     return res.status(500).json({
+    //         message: error.message
+    //     });
+    // }
+
+//-------------------------------------------------
+
+
 }
 
 export const updateProject = async (req, res) => {
