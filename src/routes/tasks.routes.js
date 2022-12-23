@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProjects, createProject, updateProject, deleteProject, getProject, } from "../controllers/projects.controller.js";
+//import { getProjects, createProject, updateProject, deleteProject, getProject, } from "../controllers/projects.controller.js";
 import { createTask, deleteTask, getTask, getTasks, updateTask } from "../controllers/task.controllers.js";
 const router = Router();
 
