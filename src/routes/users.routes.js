@@ -12,4 +12,5 @@ router.post('/login', login);
 // se debe crear un midleware y su carpeta del mismo nombre
 router.get('/protected',requiereToken,infoUser);
 
+
 export default router;

@@ -15,42 +15,34 @@
         </div>
 
         <script>
-            const logout = document.getElementById("logout");
-            logout.addEventListener("click", async () => {
-                const res = await fetch("/api/v1/auth/logout", {
-                    method: "GET",
-                    // headers: {
-                    //     "Content-Type": "application/json",
-                    //     Authorization: "Bearer " + token,
-                    // },
-                    // credentials: "include",
-                });
-                console.log(res);
-            });
-
             document.addEventListener("DOMContentLoaded", async (e) => {
                 try {
-                    const resToken = await fetch("/api/v1/auth/refresh", {
-                        method: "GET",
-                        credentials: "include",
-                    });
+                   // const token=localStorage.getItem('token')
+                   // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiY2UwMTEwZjEtOTYyMy00YTdjLTg4MmMtYWEyY2Y5ZWJiMWQ1IiwiaWF0IjoxNjcyODQyODQzLCJleHAiOjE2NzI4NDM3NDN9.m8PGeZJfRDXrQVK-SnEStrdp_TxfB6VkcoCjnROqn1g";
+                   const resToken = await fetch("http://localhost:4000/refresh",{
+                    method: "GET",
+                    credentials: "include",
+                   })
+                    
+                   const {token} =await resToken.json();
 
-                    const { token } = await resToken.json();
 
-                    const res = await fetch("/api/v1/auth/protected", {
+                    const res = await fetch("http://localhost:4000/protected", {
                         method: "GET",
                         headers: {
-                            "Content-Type": "application/json",
-                            Authorization: "Bearer " + token,
+                            "Content-Type": "application/json"
+                            //Authorization: "Bearer " + token
                         },
-                        // credentials: "include",
+                         //credentials: "include",
                     });
                     console.log(res.ok, res.status);
                     const data = await res.json();
 
-                    if (res.ok) {
-                        document.getElementById("app").textContent = data.email;
+                    if(res.ok){
+
+                        document.getElementById("app").textContent=data.email;
                     }
+
 
                     console.log(data);
                 } catch (error) {

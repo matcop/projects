@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login</title>
-    </head>
-    <body>
-        <form id="form">
-            <input type="email" value="marce@dot.com" id="email" />
-            <input type="password" value="123456" id="password" />
-            <button type="submit">Acceder</button>
-        </form>
 
-        <script>
-            const form = document.getElementById("form");
-            const password = document.getElementById("password");
-            const email = document.getElementById("email");
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+</head>
 
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                try {
-                    const res = await fetch(
-                        "http://localhost:4000/login",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Access-Control-Allow-Methods": "POST",
-                                "Access-Control-Allow-Headers": "Content-Type, Authorization"
-                            },
-                            body: JSON.stringify({
-                                email: email.value,
-                                password: password.value,
-                            }),
-                        }
-                    );
-                    console.log(res);
-                    console.log(res.ok, res.status);
+<body>
+    <form id="form">
+        <input type="email" value="cuba@dot.com" id="email" />
+        <input type="password" value="123456" id="password" />
+        <button type="submit">Acceder</button>
+    </form>
 
-                    const { token } = await res.json();
+    <script>
+        const form = document.getElementById("form");
+        const password = document.getElementById("password");
+        const email = document.getElementById("email");
 
-                    // localStorage.setItem("token", token);
-                } catch (error) {
-                    console.log(error);
-                    console.log("༼ つ ◕_◕ ༽つ");
-                }
-            });
-        </script>
-    </body>
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            try {
+                const res = await fetch(
+                    "http://localhost:4000/login",
+                    {
+                        method: "POST",
+                        
+
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Access-Control-Allow-Methods": "POST",
+                            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+                        },
+                        body: JSON.stringify({
+                            email: email.value,
+                            password: password.value,
+                        }),
+                      
+                    }
+                );
+                
+                console.log(res.ok, res.status);
+                const {token}=await res.json();
+                //localStorage.setItem("token", token);
+               
+                // const data = await res.json()
+                // console.log(data);
+                //const { token } = await res.json();
+
+            } catch (error) {
+                console.log(error);
+                console.log("༼ つ ◕_◕ ༽つ");
+            }
+        });
+    </script>
+</body>
+
 </html>
